@@ -72,4 +72,14 @@ class DieFragment : Fragment() {
             outState.putInt(CURRENT_ROLL_KEY, this)
         }
     }
+
+    companion object {
+        fun newInstance(sides: Int) : DieFragment {
+            return DieFragment().apply{
+                arguments = Bundle().apply{
+                    putInt(DIESIDE, sides)
+                }
+            }
+        }
+    }
 }

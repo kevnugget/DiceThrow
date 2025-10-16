@@ -10,20 +10,27 @@ import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
 
-    private val dieViewModel : DieViewModel by lazy {
+    //execute one and serve with the same value from the getFunction
+    private val dieViewModel : DieViewModel by lazy{
         ViewModelProvider(this)[DieViewModel::class.java]
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // dieViewModel = ViewModelProvider(this)[DieViewModel::class.java]
 
-        supportFragmentManager.beginTransaction().add(R.id.fragmentContainerView, DieFragment.newInstance(20)).commit()
+        if(supportFragmentManager.findFragmentById(R.id.fragmentContainerView) == null)
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragmentContainerView, DieFragment.newInstance(20))
+                .commit()
 
-        val rollButton : Button = findViewById<Button>(R.id.rollDiceButton)
-        rollButton.setOnClickListener {
-            dieViewModel.rollDie()
+        findViewById<Button>(R.id.rollDiceButton).setOnClickListener {
+            dieViewModel.throwDie()
+
         }
+
+
     }
 }
